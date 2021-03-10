@@ -297,7 +297,7 @@ az network firewall network-rule create \
     --resource-group ${hub_resource_group_name} \
     --action Allow \
     --destination-fqdns "ntp.ubuntu.com" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --priority 100
 
 az network firewall network-rule create \
@@ -309,7 +309,7 @@ az network firewall network-rule create \
     --protocols TCP \
     --resource-group ${hub_resource_group_name} \
     --destination-addresses "AzureCloud" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix}    
+    --source-addresses *    
 
 az network firewall network-rule create \
     --collection-name SpringCloudAccess \
@@ -320,7 +320,7 @@ az network firewall network-rule create \
     --protocols TCP \
     --resource-group ${hub_resource_group_name} \
     --destination-addresses "AzureCloud" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix}
+    --source-addresses *
 
  az network firewall network-rule create \
     --collection-name SpringCloudAccess \
@@ -331,7 +331,7 @@ az network firewall network-rule create \
     --protocols UDP \
     --resource-group ${hub_resource_group_name} \
     --destination-addresses "AzureCloud" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix}
+    --source-addresses *
 
  az network firewall network-rule create \
     --collection-name SpringCloudAccess \
@@ -342,7 +342,7 @@ az network firewall network-rule create \
     --protocols TCP \
     --resource-group ${hub_resource_group_name} \
     --destination-addresses "AzureContainerRegistry" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix}
+    --source-addresses *
 
  az network firewall network-rule create \
     --collection-name SpringCloudAccess \
@@ -353,7 +353,7 @@ az network firewall network-rule create \
     --protocols TCP \
     --resource-group ${hub_resource_group_name} \
     --destination-addresses "Storage" \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix}
+    --source-addresses *
 
 # Creates Azure Firewall application rules
 az network firewall application-rule create \
@@ -363,7 +363,7 @@ az network firewall application-rule create \
     --description "Allow Access for Azure Kubernetes Service" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --fqdn-tags "AzureKubernetesService" \
     --priority 100 \
     --action allow
@@ -375,7 +375,7 @@ az network firewall application-rule create \
     --description "Allow Access for Ubuntu Libraries" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns "api.snapcraft.io" "motd.ubuntu.com"
 
 az network firewall application-rule create \
@@ -385,7 +385,7 @@ az network firewall application-rule create \
     --description "Required CRL Rules" \
     --protocols http=80 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "crl.microsoft.com" "mscrl.microsoft.com" "crl3.digicert.com" "ocsp.digicert.com" \
     --priority 110 \
     --action allow
@@ -397,7 +397,7 @@ az network firewall application-rule create \
     --description "Required Azure Storage Rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "*.blob.core.windows.net" \
     --priority 120 \
     --action allow
@@ -409,7 +409,7 @@ az network firewall application-rule create \
     --description "Required database clamav rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "database.clamav.net" \
     --priority 130 \
     --action allow
@@ -421,7 +421,7 @@ az network firewall application-rule create \
     --description "Required Github rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "github.com" \
     --priority 140 \
     --action allow
@@ -433,7 +433,7 @@ az network firewall application-rule create \
     --description "Required metric rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "*.prod.microsoftmetrics.com" \
     --priority 150 \
     --action allow
@@ -446,7 +446,7 @@ az network firewall application-rule create \
     --description "Required AKS acs rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "acs-mirror.azureedge.net" \
     --priority 160 \
     --action allow
@@ -459,7 +459,7 @@ az network firewall application-rule create \
     --description "Required login rules" \
     --protocols https=443 \
     --resource-group ${hub_resource_group_name} \
-    --source-addresses ${azurespringcloud_app_subnet_prefix} ${azurespringcloud_service_runtime_subnet_prefix} \
+    --source-addresses * \
     --target-fqdns  "login.microsoftonline.com" \
     --priority 170 \
     --action allow
@@ -618,6 +618,22 @@ az network vnet subnet create \
     --address-prefix ${azurespringcloud_support_subnet_prefix} \
     --network-security-group ${azure_spring_cloud_support_subnet_nsg} \
     --disable-private-endpoint-network-policies true 
+
+az network vnet subnet create  \
+    --name "apps2" \
+    --resource-group ${hub_resource_group_name} \
+    --vnet-name ${azurespringcloud_vnet_name} \
+    --address-prefix 10.8.4.0/24 \
+
+
+az network vnet subnet create \
+    --name "service2" \
+    --resource-group ${hub_resource_group_name} \
+    --vnet-name ${azurespringcloud_vnet_name} \
+    --address-prefix ${azurespringcloud_app_subnet_prefix} \
+
+
+
 
 
 #Get Resource ID  for Azure Spring Cloud Vnet
@@ -898,3 +914,14 @@ az network private-dns record-set a add-record \
     --zone-name private.azuremicroservices.io \
     --record-set-name '*' \
     --ipv4-address ${azurespringcloud_internal_lb_private_ip}
+
+
+az spring-cloud create \
+    --name "SpringCloud2" \
+    --resource-group ${hub_resource_group_name} \
+    --location ${location} \
+    --vnet ${azurespringcloud_vnet_id} \
+    --reserved-cidr-range 10.0.0.0/16,10.1.0.0/16,10.2.0.1/16 \
+    --service-runtime-subnet "service2" \
+    --app-subnet "apps2" \
+    --tags ${tags}
